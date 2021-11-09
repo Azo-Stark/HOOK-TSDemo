@@ -25,4 +25,22 @@ export const login = (data: {user: string, password: string}) => {
             return handleUserResponse(await response.json())
         }
     })
-} 
+}
+
+export const register = (data: {user: string, password: string}) => {
+    fetch(`${baseURL}/register`, {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    }).then(async(response) => {
+        if(response.ok) {
+            return handleUserResponse(await response.json())
+        }
+    })
+}
+
+export const logout = () => {
+    window.localStorage.removeItem(localStorageKey)
+}
