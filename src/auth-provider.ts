@@ -13,8 +13,8 @@ export const handleUserResponse = ({user}:{user: User}) => {
     return user
 }
 
-export const login = (data: {user: string, password: string}) => {
-    fetch(`${baseURL}/login`, {
+export const login = (data: {username: string, password: string}) => {
+    return fetch(`${baseURL}/login`, {
         method: 'POST',
         headers: {
             'content-type': 'application/json'
@@ -23,12 +23,14 @@ export const login = (data: {user: string, password: string}) => {
     }).then(async(response) => {
         if(response.ok) {
             return handleUserResponse(await response.json())
+        } else {
+            return Promise.reject(data)
         }
     })
 }
 
-export const register = (data: {user: string, password: string}) => {
-    fetch(`${baseURL}/register`, {
+export const register = (data: {username: string, password: string}) => {
+    return fetch(`${baseURL}/register`, {
         method: 'POST',
         headers: {
             'content-type': 'application/json'
@@ -37,10 +39,12 @@ export const register = (data: {user: string, password: string}) => {
     }).then(async(response) => {
         if(response.ok) {
             return handleUserResponse(await response.json())
+        } else {
+            return Promise.reject(data)
         }
     })
 }
 
-export const logout = () => {
+export const logout = async () => {
     window.localStorage.removeItem(localStorageKey)
 }
